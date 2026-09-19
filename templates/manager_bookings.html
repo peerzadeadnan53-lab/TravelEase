@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>All Bookings - TravelEase</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<!-- <div class="manager-dashboard">
+
+    <div class="manager-header">
+
+        <div>
+            <h1>All Bookings</h1>
+            <p>Manage TravelEase bookings</p>
+        </div>
+
+        <div>
+            <button onclick="window.location.href='/manager-dashboard'">
+                Dashboard
+            </button>
+
+            <button onclick="window.location.href='/manager-logout'">
+                Logout
+            </button>
+        </div>
+
+    </div>
+
+
+    <div class="booking-table-container">
+
+        <table class="manager-table">
+
+            <thead>
+                <tr>
+                    <th>Reference</th>
+                    <th>Customer</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Destination</th>
+                    <th>Package</th>
+                    <th>Travel Date</th>
+                    <th>Travelers</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for booking in bookings %}
+
+                <tr>
+
+                    <td>{{ booking[9] }}</td>
+
+                    <td>{{ booking[1] }}</td>
+
+                    <td>{{ booking[2] }}</td>
+
+                    <td>{{ booking[3] }}</td>
+
+                    <td>{{ booking[4] }}</td>
+
+                    <td>{{ booking[5] }}</td>
+
+                    <td>{{ booking[6] }}</td>
+
+                    <td>{{ booking[7] }}</td>
+
+                    <td>
+                        <form method="POST"
+                              action="/manager-update-booking/{{ booking[0] }}">
+
+                            <select name="status"
+                                    onchange="this.form.submit()">
+
+                                <option value="Confirmed"
+                                    {% if booking[8] == "Confirmed" %}selected{% endif %}>
+                                    Confirmed
+                                </option>
+
+                                <option value="Pending"
+                                    {% if booking[8] == "Pending" %}selected{% endif %}>
+                                    Pending
+                                </option>
+
+                                <option value="Cancelled"
+                                    {% if booking[8] == "Cancelled" %}selected{% endif %}>
+                                    Cancelled
+                                </option>
+
+                            </select>
+
+                        </form>
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="9">
+                        No bookings found.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div> -->
+<div class="manager-dashboard">
+
+    <!-- Sidebar -->
+    <div class="manager-sidebar">
+
+        <h2>TravelEase</h2>
+
+        <p class="sidebar-title">MANAGER PANEL</p>
+
+        <a href="/manager-dashboard">
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+        </a>
+
+        <a href="/manager-users">
+            <i class="fa-solid fa-users"></i>
+            Users
+        </a>
+
+        <a href="/manager-bookings">
+            <i class="fa-solid fa-calendar-check"></i>
+            Bookings
+        </a>
+
+        <a href="/manager-messages">
+            <i class="fa-solid fa-envelope"></i>
+            Messages
+        </a>
+
+        <a href="/manager-subscribers">
+            <i class="fa-solid fa-paper-plane"></i>
+            Subscribers
+        </a>
+
+        <a href="/manager-wishlist">
+            <i class="fa-solid fa-heart"></i>
+            Wishlist
+        </a>
+
+        <a href="/manager-logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="manager-main-content">
+
+        <!-- Page Header -->
+        <div class="manager-header">
+
+            <div>
+                <h1>All Bookings</h1>
+                <p>Manage TravelEase bookings</p>
+            </div>
+
+            <div>
+                <button onclick="window.location.href='/manager-dashboard'">
+                    Dashboard
+                </button>
+
+                <button onclick="window.location.href='/manager-logout'">
+                    Logout
+                </button>
+            </div>
+
+        </div>
+
+
+        <!-- Booking Details -->
+        <div class="booking-table-container">
+
+            <table class="manager-table">
+
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th>Customer</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Destination</th>
+                        <th>Package</th>
+                        <th>Travel Date</th>
+                        <th>Travelers</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for booking in bookings %}
+
+                    <tr>
+
+                        <td>{{ booking[9] }}</td>
+
+                        <td>{{ booking[1] }}</td>
+
+                        <td>{{ booking[2] }}</td>
+
+                        <td>{{ booking[3] }}</td>
+
+                        <td>{{ booking[4] }}</td>
+
+                        <td>{{ booking[5] }}</td>
+
+                        <td>{{ booking[6] }}</td>
+
+                        <td>{{ booking[7] }}</td>
+
+                        <td>
+
+                            <form method="POST"
+                                  action="/manager-update-booking/{{ booking[0] }}">
+
+                                <select name="status"
+                                        onchange="this.form.submit()">
+
+                                    <option value="Confirmed"
+                                        {% if booking[8] == "Confirmed" %}selected{% endif %}>
+                                        Confirmed
+                                    </option>
+
+                                    <option value="Pending"
+                                        {% if booking[8] == "Pending" %}selected{% endif %}>
+                                        Pending
+                                    </option>
+
+                                    <option value="Cancelled"
+                                        {% if booking[8] == "Cancelled" %}selected{% endif %}>
+                                        Cancelled
+                                    </option>
+
+                                </select>
+
+                            </form>
+
+                        </td>
+                        <td>
+    <form method="POST"
+          action="/manager-delete-booking/{{ booking[0] }}"
+          onsubmit="return confirm('Are you sure you want to permanently delete this booking?');">
+
+        <button type="submit" class="manager-delete-btn">
+            <i class="fa-solid fa-trash"></i>
+            Delete
+        </button>
+
+    </form>
+</td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="11">
+                            No bookings found.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

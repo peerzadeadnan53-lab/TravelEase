@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manager Login - TravelEase</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="manager-login-container">
+
+        <div class="manager-login-box">
+
+            <div class="manager-icon">
+                🔐
+            </div>
+
+            <h2>Manager Login</h2>
+            <p>Login to access TravelEase Admin Panel</p>
+
+            <form method="POST" action="/manager-login">
+
+                <div class="manager-input">
+                    <label>Email Address</label>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter manager email"
+                        required
+                    >
+                </div>
+
+                <div class="manager-input">
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="manager-login-btn">
+                    Login to Dashboard
+                </button>
+
+            </form>
+
+            <a href="/" class="back-home">
+                ← Back to TravelEase
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

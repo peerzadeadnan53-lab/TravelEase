@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login TravelEase</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="auth-container">
+
+        <div class="auth-box">
+            <div class="auth-logo">
+                <i class="fa-solid fa-earth-asia"></i>
+                <span>TravelEase</span>
+            </div>
+            <h2>Welcome Back!</h2>
+            <p>Login to continue your journey.</p>
+
+            <form method="POST" action="/login">
+                <div class="login-type">
+    <label>
+        <input type="radio" name="login_type" value="user" checked>
+        User Login
+    </label>
+
+    <label>
+        <input type="radio" name="login_type" value="manager">
+        Manager Login
+    </label>
+</div>
+                <div class="auth-input">
+                    <label>Email Address</label>
+                    <input type="email"name="email" placeholder="Enter your email"  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$"
+       title="Please enter a valid email ending with .com" required>
+                </div>
+
+                <div class="auth-input">
+                <label>Password</label>
+                  <div class="password-box">
+              <input type="password" name="password"  id="loginPassword" placeholder="Enter your password" required>
+              <i class="fa-solid fa-eye"
+       id="togglePassword"></i>
+                  </div>
+                </div>
+               <button type="submit" class="auth-btn">Login</button>
+         </form>
+         <p class="auth-switch"> Don't have an account?<a href="/signup"> Sign Up</a></p>
+    </div>
+ </div>
+ <script>
+const loginForm = document.querySelector("form");
+
+const loginTypes = document.querySelectorAll(
+    'input[name="login_type"]'
+);
+
+loginTypes.forEach(function (radio) {
+
+    radio.addEventListener("change", function () {
+
+        if (this.value === "manager") {
+            loginForm.action = "/manager-login";
+        } else {
+            loginForm.action = "/login";
+        }
+
+    });
+
+});
+const togglePassword = document.getElementById("togglePassword");
+const loginPassword = document.getElementById("loginPassword");
+
+togglePassword.addEventListener("click", function () {
+
+    if (loginPassword.type === "password") {
+
+        loginPassword.type = "text";
+        togglePassword.classList.remove("fa-eye");
+        togglePassword.classList.add("fa-eye-slash");
+
+    } else {
+
+        loginPassword.type = "password";
+        togglePassword.classList.remove("fa-eye-slash");
+        togglePassword.classList.add("fa-eye");
+
+    }
+
+});
+</script>
+</body>
+</html>

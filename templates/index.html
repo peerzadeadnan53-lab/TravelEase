@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelEase</title>
+</head>
+<body>
+    {% extends "base.html" %}
+    {%block title%}
+    Home
+    {%endblock%}
+    {%block content%}
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-earth-asia"></i>  
+            <span>TravelEase</span>
+        
+        </div>
+        <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="#destinactions">Destinations</a></li>
+        <li><a href="#packages">packages</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+        </ul>
+       <div class="nav-button">
+    {% if session.get("user_id") %}
+    <span class="welcome-user">
+        {{ session.get("user_name") }}</span>
+
+    <button class="my-bookings-btn"onclick="window.location.href='/my-bookings'"> My Bookings</button>
+    <button class="login-btn" onclick="window.location.href='/logout'">Logout</button>
+{% else %}
+        <button class="login-btn" onclick="window.location.href='/login'">Login</button>
+        <button class="Singup-btn" onclick="window.location.href='/signup'"> Sign Up</button>
+    {% endif %}
+    <!-- Dark / Light Mode -->
+    <button class="theme-btn" id="themeToggle">
+        <i class="fa-solid fa-moon"></i>
+    </button>
+
+</div>
+    </nav>
+    <section class="hero">
+       <div class="overlay"></div>
+       <div class="hero-content">
+        <h1>Explore the World with TravelEase</h1>
+        <p>Discover beautiful destinations ,Book amazing tours, and creat a unforgettable memories</p>
+        <div class="hero-buttons">
+            <button class="explore-btn">Explore Now</button>
+            <button class="book-btn">Book Trip</button>
+        </div>
+       </div>
+       <div class="search-box">
+                <div class="search-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <input type="text" id="destinationSearch" placeholder=" Enter destination">
+                </div>
+                <div class="search-item">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <input type="date" id="travelDate">
+                </div>
+                <button class="search-btn" id="searchBtn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    Search
+                </button>
+            </div>
+    </section>
+    <!-- popular destinations -->
+     <section class="destinations-section"id="destinactions">
+        <div class="section-header"data-aos="fade-up">
+            <span>TOP DESTINATIONS</span>
+            
+            <h2> ExplorePopular Destinations</h2>
+            <p>Discover amazing places and plan your next unforgettable journey</p>
+        </div>
+        <div class="destination-container">
+            <!-- Card 1 -->
+             <div class="destination-card" data-destination="Kashmir"data-aos="fade-up">
+                <div class="destination-image">
+                    <img src="{{ url_for('static', filename='images/kashmir.jpg') }}" alt="Kashmir">
+                   <span class="wishlist {% if 'Kashmir' in wishlist_destinations %}active{% endif %}">
+                   <i class="{% if 'Kashmir' in wishlist_destinations %}fa-solid{% else %}fa-regular{% endif %} fa-heart"></i>
+                </span>
+                </div>
+                <div class="destination-info">
+                    <div class="location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Kashmir, India
+                    </div>
+                    <h3>Kashmir</h3>
+                    <p>Experience beautiful mountains, lakes and valleys</p>
+                    <div class="destination-bottom">
+                        <span class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            4.9
+                        </span>
+                        <button class="view-btn">Explore
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+             </div>
+                <!-- Card 2 -->
+               <div class="destination-card"data-destination="Dubai">
+
+                <div class="destination-image">
+                   <img src="{{ url_for('static', filename='images/dubai.jpg') }}"
+                     alt="Dubai">
+                     <span class="wishlist {% if 'Dubai' in wishlist_destinations %}active{% endif %}">
+                      <i class="{% if 'Dubai' in wishlist_destinations %}fa-solid{% else %}fa-regular{% endif %} fa-heart"></i>
+                    </span>
+                    </div>  
+                    <div class="destination-info">
+                        <div class="location">
+                            <i class="fa-solid fa-location-dot"></i>
+                            Dubai, UAE
+                        </div>
+                        <h3>Dubai</h3>
+                        <p>Discover luxury , adventure and unforgettable experiences</p>
+                        <div class="destination-bottom">
+                            <span class="rating">
+                                <i class="fa-solid fa-star"></i>
+                                4.8
+                            </span>
+                            <button class="view-btn">Explore
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+               </div>  
+               <!-- Card 3 -->
+                <div class="destination-card"data-destination="paris">
+
+            <div class="destination-image">
+                <img src="{{ url_for('static', filename='images/paris.jpg') }}"
+                     alt="Paris">
+
+                <span class="wishlist {% if 'Paris' in wishlist_destinations %}active{% endif %}">
+                <i class="{% if 'Paris' in wishlist_destinations %}fa-solid{% else %}fa-regular{% endif %} fa-heart"></i>
+               </span>
+            </div>
+
+            <div class="destination-info">
+
+                <div class="location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    Paris, France
+                </div>
+
+                <h3>Paris</h3>
+                <p> Explore iconic landmarks, culture and romantic streets. </p>
+                <div class="destination-bottom">
+                    <span class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        4.9
+                    </span>
+                    <button class="view-btn">
+                        Explore
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                   </div>
+               </div>
+            </div>
+            <!-- card 4 -->
+            <div class="destination-card"data-destination="Manali">
+                <div class="destination-image">
+                    <img src="{{ url_for('static', filename='images/manali.jpg') }}"
+                  alt="Manali">
+                 <span class="wishlist {% if 'Manali' in wishlist_destinations %}active{% endif %}">
+                  <i class="{% if 'Manali' in wishlist_destinations %}fa-solid{% else %}fa-regular{% endif %} fa-heart"></i>
+                 </span>
+
+                </div>
+                <div class="destination-info">
+                    <div class="location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Manali, India
+                    </div>
+                    <h3>Manali</h3>
+                    <p>Enjoy peaceful valleys, snowy mountains and exciting adventures</p>
+                    <div class="destination-bottom">
+                        <span class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            4.7
+                        </span>
+                        <button class="view-btn">
+                            Explore
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            <!-- card 5 -->
+             <div class="destination-card"data-destination="Bali">
+                <div class="destination-image">
+                    <img src="{{ url_for('static', filename='images/bali.jpg') }}" alt="Bali">
+                   <span class="wishlist {% if 'Bali' in wishlist_destinations %}active{% endif %}">
+                   <i class="{% if 'Bali' in wishlist_destinations %}fa-solid{% else %}fa-regular{% endif %} fa-heart"></i>
+                  </span>
+                </div>
+                <div class="destination-info">
+                    <div class="location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Bali, Indonesia
+                    </div>
+                    <h3>Bali</h3>
+                    <p>Relax on tropical beaches and discover beautiful island culture</p>
+                    <div class="destination-bottom">
+                        <span class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            4.8
+                        </span>
+                        <button class="view-btn">Explore 
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+             </div>
+             <!-- Card 6 -->
+<div class="destination-card"data-destination="Switzerland">
+
+    <div class="destination-image">
+
+        <img src="{{ url_for('static', filename='images/switzerland.jpg') }}" alt="Switzerland">
+       <span class="wishlist {% if 'Switzerland' in wishlist_destinations %}active{% endif %}">
+      <i class="{% if 'Switzerland' in wishlist_destinations %}fa-solid{% else %}fa-regular{% endif %} fa-heart"></i>
+      </span>
+
+    </div>
+
+    <div class="destination-info">
+
+        <div class="location">
+            <i class="fa-solid fa-location-dot"></i>
+            Switzerland
+        </div>
+        <h3>Switzerland</h3>
+        <p> Experience stunning Alps, peaceful lakes and charming villages.</p>
+        <div class="destination-bottom">
+            <span class="rating">
+                <i class="fa-solid fa-star"></i>
+                4.9
+            </span>
+
+            <button class="view-btn">
+                Explore
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+        </div>
+     </section>
+   
+
+   
+     <!-- tour packages -->
+      <section class="packages-section"id="packages">
+        <div class="section-header" data-aos="fade-up">
+            <span>BEST TRAVEL DEALS</span>
+            <h2>popular tour packages</h2>
+            <p>Chose your perfect holiday package and start your next adventure</p>
+        </div>
+        <div class="packages-container">
+            <!-- package 1 -->
+             <div class="package-card"data-aos="fade-up">
+                <div class="package-image">
+                    <img src="{{ url_for('static', filename='images/package-kashmir.jpg') }}"
+                    alt="Kashmir Tour">
+                    <span class="package-badge">
+                        popular
+                    </span>
+                </div>
+                <div class="package-info">
+                    <div class="package-location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Kashmir, India
+                    </div>
+                    <h3>Magical Kashmir</h3>
+                    <p class="package-description"id="packageDetail">Explore beautiful valleys, peaceful lakes and breathtaking mountain views.</p>
+                    <div class="package-details">
+                        <span>
+                            <i class="fa-regular fa-clock"></i>
+                            5 Days
+                        </span>
+                        <span>
+                            <i class="fa-solid fa-user-group"></i>
+                            2 Persons
+                        </span>
+                    </div>
+                    <div class="package-bottom">
+                        <div>
+                            <span class="package-rating">
+                             <i class="fa-solid fa-star"></i>
+                                4.9
+                            </span>
+                            <div class="package-price">
+                                ₹24,999
+                            </div>
+                        </div>
+                  <a href="/booking?package=Magical%20Kashmir&price=24999&days=5&location=Kashmir%2C%20India&detail=Explore%20beautiful%20valleys%2C%20peaceful%20lakes%20and%20breathtaking%20mountain%20views.&image=package-kashmir.jpg">
+                    <button class="book-btn">
+                     Book Now
+                   <i class="fa-solid fa-arrow-right"></i>
+                  </button>
+                  </a>
+                    </div>
+                </div>
+             </div>
+             <!-- package 2 -->
+              <div class="package-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="package-image">
+                    <img  src="{{ url_for('static', filename='images/package-dubai.jpg') }}"
+                    alt="Dubai Tour">
+                    <span class="package-badge">
+                        Best Seller
+                    </span> 
+                </div>
+                <div class="package-info">
+                    <div class="package-location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Dubai, UAE
+                    </div>
+                    <h3>Dubai luxury Escape</h3>
+                    <p class="package-description" id="packageDetail"> Experience luxury hotels, desert adventures and world-famous attractions</p>
+                    <div class="package-details">
+                        <span>
+                        <i class="fa-regular fa-clock"></i>
+                            6 Days
+                        </span>
+                       <span>
+                        <i class="fa-solid fa-user-group"> </i>
+                        2 persons
+                    </span>
+                    </div>
+                    <div class="package-bottom">
+                        <div>
+                            <span class="package-rating">
+                                <i class="fa-solid fa-star"></i>
+                                4.8
+                            </span>
+                            <div class="package-price">
+                              ₹39,999  
+                              <small>/person</small>
+                            </div>
+                        </div>
+                       <a href="/booking?package=Dubai%20Luxury%20Escape&price=39999&days=6&location=Dubai%2C%20UAE&detail=Experience%20luxury%20hotels%2C%20desert%20adventures%2C%20shopping%20and%20the%20iconic%20views%20of%20Dubai.&image=package-dubai.jpg">
+                   <button class="book-btn">
+                    Book Now
+                  <i class="fa-solid fa-arrow-right"></i>
+                   </button>
+                    </a>
+                    </div>
+                </div>
+              </div>
+               <!-- Package 3 -->
+
+        <div class="package-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="package-image">
+                <img src="{{ url_for('static', filename='images/package-bali.jpg') }}"alt="Bali Tour">
+                <span class="package-badge">
+                    New
+                </span>
+            </div>
+            <div class="package-info">
+                <div class="package-location">
+               <i class="fa-solid fa-location-dot"></i>
+                    Bali, Indonesia
+                </div>
+                <h3> Bali Island Paradise</h3>
+                <p class="package-description" id="packageDetail">Enjoy tropical beaches, beautiful resorts and unforgettable island experiences.</p>
+                <div class="package-details">
+                    <span>
+                    <i class="fa-regular fa-clock"></i>
+                        7 Days
+                    </span>
+                    <span>
+                        <i class="fa-solid fa-user-group"></i>
+                        2 Persons
+                    </span>
+                </div>
+                <div class="package-bottom">
+                    <div>
+                        <span class="package-rating">
+                            <i class="fa-solid fa-star"></i>
+                            4.9
+                        </span>
+                        <div class="package-price">
+                            ₹44,999
+                         <small>/person</small>
+                        </div>
+                    </div>
+                   <a href="/booking?package=Bali%20Island%20Paradise&price=44999&days=7&location=Bali%2C%20Indonesia&detail=Relax%20on%20beautiful%20beaches%2C%20explore%20ancient%20temples%20and%20enjoy%20the%20natural%20beauty%20of%20Bali.&image=package-bali.jpg">
+               <button class="book-btn">
+                Book Now
+            <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            </a>
+            </div>
+          </div>
+        </div>
+        </div>
+         <!-- View All Packages -->
+
+    <div class="view-all-wrapper">
+        <button class="view-btn">
+            View All Packages
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </div>
+      </section>
+      <!-- travels galary -->
+       <section class="gallery-section"id="gallery">
+        <div class="section-heading" data-aos="fade-up">
+            <span>TRAVEL MOMENTS</span>
+            <h2>Explore Beautiful Experiences</h2>
+            <p>Get inspired by ammazing places and unforgettable travel moments</p>
+
+        </div>
+        <div class="gallery-grid">
+            <!-- Gallery 1 -->
+             <div class="gallery-item gallery-large"data-aos="zoom-in">
+                <img   src="{{ url_for('static', filename='images/gallery-1.jpg') }}" alt="Travel destination">
+                <div class="gallery-overlay">
+                    <div class="gallery-content">
+                        <i class="fa-solid fa-image"></i>
+                        <h3>Mountain Escape</h3>
+                        <p>Adventure & Nature</p>
+                    </div>  
+                </div>
+             </div>
+              <!-- Gallery 2 -->
+        <div class="gallery-item"
+             data-aos="zoom-in" data-aos-delay="100">
+            <img src="{{ url_for('static', filename='images/gallery-2.jpg') }}" alt="Beach destination">
+            <div class="gallery-overlay">
+                <div class="gallery-content">
+                    <i class="fa-solid fa-image"></i>
+                    <h3>Tropical Paradise</h3>
+                    <p>Beach & Relaxation</p>
+                </div>
+            </div>
+        </div>
+        <!-- Gallery 3 -->
+        <div class="gallery-item"
+             data-aos="zoom-in"
+             data-aos-delay="200">
+            <img src="{{ url_for('static', filename='images/gallery-3.jpg') }}" alt="City destination">
+            <div class="gallery-overlay">
+                <div class="gallery-content">
+                    <i class="fa-solid fa-image"></i>
+                    <h3>City Lights</h3>
+                    <p>Culture & Lifestyle</p>
+                </div>
+            </div>
+        </div>
+        <!-- Gallery 4 -->
+        <div class="gallery-item"
+             data-aos="zoom-in"
+             data-aos-delay="100">
+            <img src="{{ url_for('static', filename='images/gallery-4.jpg') }}"  alt="Desert destination">
+            <div class="gallery-overlay">
+                <div class="gallery-content">
+                    <i class="fa-solid fa-image"></i>
+                    <h3>Desert Adventure</h3>
+                    <p>Adventure & Exploration</p>
+                </div>
+            </div>
+        </div>
+        <!-- Gallery 5 -->
+        <div class="gallery-item"
+             data-aos="zoom-in"
+             data-aos-delay="200">
+            <img  src="{{ url_for('static', filename='images/gallery-5.jpg') }}" alt="Lake destination">
+            <div class="gallery-overlay">
+                <div class="gallery-content">
+                    <i class="fa-solid fa-image"></i>
+                    <h3>Peaceful Lakes</h3>
+                    <p>Nature & Relaxation</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery 6 -->
+
+        <div class="gallery-item1"
+             data-aos="zoom-in"
+             data-aos-delay="300">
+            <img src="{{ url_for('static', filename='images/gallery-6.jpg') }}"
+                alt="Travel experience">
+            <div class="gallery-overlay">
+                <div class="gallery-content">
+                    <i class="fa-solid fa-image"></i>
+                    <h3>Unforgettable Journey</h3>
+                    <p>Travel & Memories</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gallery-button-wrapper">
+        <button class="view-gallery-btn">
+           View Full Gallery
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+        </div>
+       </section>
+       <!--WHY CHOOSE TRAVELEASE-->
+
+     <section class="features-section">
+      <div class="section-heading" data-aos="fade-up">
+        <span>WHY TRAVELEASE</span>
+        <h2>Travel With Confidence</h2>
+        <p> Everything you need for a comfortable, safe and memorable journey. </p>
+     </div>
+    <div class="features-container">
+
+        <!-- Feature 1 -->
+        <div class="feature-card" data-aos="fade-up">
+            <div class="feature-icon">
+             <i class="fa-solid fa-earth-americas"></i>
+            </div>
+            <h3>Best Destinations</h3>
+            <p>Discover beautiful destinations and unforgettable experiences around the world. </p>
+        </div>
+
+        <!-- Feature 2 -->
+
+        <div class="feature-card"
+             data-aos="fade-up"
+             data-aos-delay="100">
+            <div class="feature-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3>Safe & Secure</h3>
+            <p> Your travel plans and booking information are handled with care and security. </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card"
+             data-aos="fade-up"
+             data-aos-delay="200">
+            <div class="feature-icon">
+                <i class="fa-solid fa-tags"></i>
+            </div>
+            <h3>Best Price</h3>
+            <p> Find attractive travel packages at competitive prices for your next adventure.</p>
+        </div>
+
+        <!-- Feature 4 -->
+
+        <div class="feature-card"
+             data-aos="fade-up"
+             data-aos-delay="300">
+            <div class="feature-icon">
+             <i class="fa-solid fa-headset"></i>
+            </div>
+            <h3>24/7 Support</h3>
+            <p> Get assistance whenever you need help with your travel plans and bookings.</p>
+        </div>
+    </div>
+</section>
+<!-- Customer Teasting-->
+<section class="testimonials-section">
+    <div class="section-heading" data-aos="fade-up">
+      <span>TRAVELER REVIEWS</span>
+        <h2>What Our Travelers Say</h2>
+        <p> Real experiences from travelers who explored the world with TravelEase. </p>
+    </div>
+    <div class="testimonials-container">
+        <!-- Review 1 -->
+
+        <div class="testimonial-card"
+             data-aos="fade-up">
+            <div class="testimonial-top">
+                <div class="reviewer">
+                    <div class="reviewer-avatar"> A </div>
+                    <div>
+                     <h3>Ali Hamza</h3>
+                <span>Delhi, India</span>
+                    </div>
+                </div>
+                <div class="quote-icon">
+                    <i class="fa-solid fa-quote-right"></i>
+                </div>
+            </div>
+
+            <div class="stars">
+
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <p class="review-text">
+                Amazing experience! The booking process was simple and the Kashmir trip was beautifully organized. </p>
+            <span class="review-date">
+                 July 2026 </span>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="testimonial-card"
+             data-aos="fade-up"
+             data-aos-delay="150">
+            <div class="testimonial-top">
+                <div class="reviewer">
+                    <div class="reviewer-avatar"> R</div>
+                    <div>
+                        <h3>ZakaryaF</h3>
+                        <span>Mumbai, India</span>
+                    </div>
+                </div>
+                <div class="quote-icon">
+                    <i class="fa-solid fa-quote-right"></i>
+                </div>
+            </div>
+            <div class="stars">
+
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <p class="review-text"> I really loved the Dubai package. Everything was easy to understand and the overall experience was great.</p>
+            <span class="review-date">June 2026</span>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="testimonial-card"
+             data-aos="fade-up"
+             data-aos-delay="300">
+            <div class="testimonial-top">
+                <div class="reviewer">
+                    <div class="reviewer-avatar"> S </div>
+                    <div>
+                        <h3>Sameer Khan</h3>
+                     <span>Pune, India</span>
+                    </div>
+                </div>
+                <div class="quote-icon">
+                    <i class="fa-solid fa-quote-right"></i>
+                </div>
+            </div>
+            <div class="stars">
+
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+            </div>
+            <p class="review-text">
+                Beautiful destinations and a very clean website.
+                 I found the travel packages really useful.</p>
+            <span class="review-date"> May 2026 </span>
+        </div>
+    </div>
+    <!-- Overall Rating -->
+
+    <div class="overall-rating" data-aos="fade-up">
+        <div class="overall-number">4.9 </div>
+        <div>
+            <div class="overall-stars">
+
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <p>  Based on 1,250+ traveler reviews</p>
+       </div>
+    </div>
+    <!-- user rating -->
+     <div class="user-rating-box" data-aos="fade-up">
+        <h3>Rate Your Experience</h3>
+        <p>How would you rate TravelEase?</p>
+        <div class="interactive-stars">
+        <i class="fa-regular fa-star" data-rating="1"></i>
+        <i class="fa-regular fa-star" data-rating="2"></i>
+        <i class="fa-regular fa-star" data-rating="3"></i>
+        <i class="fa-regular fa-star" data-rating="4"></i>
+        <i class="fa-regular fa-star" data-rating="5"></i>
+        </div>
+        <p class="rating-message"></p>
+     </div>
+</section>
+   <!-- Newsletter-->
+    <section class="newsletter-section"id="newsletter">
+        <div class="newsletter-content"data-aos="fade-up">
+            <div class="newsletter-icon">
+                <i class="fa-solid fa-paper-plane"></i>
+            </div>
+            <span>STAY CONNECTED</span>
+            <h2>Ready for your next adventure</h2>
+            <p>Subscribe to TravelEase and get travel inspiration, special offers and the latest travel updates.</p>
+            <form class="newsletter-form"method="POST" action="/subscribe">
+                <div class="email-box">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input type="email" name="email" placeholder="Enter your email address" required>
+                </div>
+                <button type="submit">Subscribe<i class="fa-solid fa-arrow-right"></i></button>
+            </form>
+            <small>We respect your privacy you can unsubscribe anytime</small>
+        </div>
+    </section>
+   <!-- CONTACT SECTION -->
+
+<section class="contact-section"id="contact">
+    <div class="section-heading" data-aos="fade-up">
+        <span>GET IN TOUCH</span>
+        <h2>Let's Plan Your Journey</h2>
+        <p> Have a question or need help planning your trip? Our team is here to help.</p>
+    </div>
+    <div class="contact-container">
+
+        <!-- Contact Information -->
+        <div class="contact-info" data-aos="fade-right">
+            <h3>Contact TravelEase</h3>
+            <p>Feel free to contact us for travel information, package details or any other questions. </p>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+
+                <div>
+                    <h4>Our Location</h4>
+                    <p>Jalgaon, Maharashtra, India</p>
+             </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+
+                <div>
+                    <h4>Phone Number</h4>
+                    <p>+91 98765 43210</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+
+                <div>
+                    <h4>Email Address</h4>
+                    <p>support@travelease.com</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+                <div>
+                    <h4>Working Hours</h4>
+                    <p>Mon  Sat: 9:00 AM  7:00 PM</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+
+        <div class="contact-form-container" data-aos="fade-left">
+
+            <h3>Send Us a Message</h3>
+            <form class="contact-form" method="POST" action="/contact">
+
+                <div class="form-row">
+                    <div class="form-group">
+
+                        <label for="name">Your Name</label>
+                        <input type="text"id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email"placeholder="Enter your email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject"placeholder="How can we help you?"required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message"name="message" rows="5"placeholder="Write your message..."required></textarea>
+                     </div>
+                <button type="submit" class="send-message-btn">Send Message
+          <i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+          </div>
+    </div>
+</section>
+       <!--FOOTER-->
+
+<footer class="footer">
+    <div class="footer-container">
+        <!-- Brand -->
+
+        <div class="footer-column footer-brand">
+            <h2>
+                <i class="fa-solid fa-plane-departure"></i>
+                TravelEase </h2>
+            <p> Your trusted travel companion for discovering beautiful destinations and unforgettable experiences.</p>
+            <div class="footer-social">
+                <a href="#" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter">
+                    <i class="fa-brands fa-x-twitter"></i> </a>
+                <a href="#" aria-label="YouTube">
+                    <i class="fa-brands fa-youtube"></i> </a>
+            </div>
+        </div>
+        <!-- Quick Links -->
+
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li>
+                    <a href="#">Home</a>
+                </li>
+                <li>
+                 <a href="#">Destinations</a>
+                </li>
+                <li>
+                <a href="#">Packages</a>
+                </li>
+                <li>
+               <a href="#">Gallery</a>
+                </li>
+                <li>
+                <a href="#">Contact</a>
+               </li>
+            </ul>
+        </div>
+        <!-- Popular Destinations -->
+
+        <div class="footer-column">
+            <h3>Popular Destinations</h3>
+            <ul>
+                <li>
+                    <a href="#">Kashmir</a>
+                </li>
+                <li>
+                    <a href="#">Dubai</a>
+                </li>
+                <li>
+                    <a href="#">Bali</a>
+                </li>
+                <li>
+                  <a href="#">Paris</a>
+                </li>
+                <li>
+                    <a href="#">Switzerland</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-column">
+            <h3>Contact Us</h3>
+
+            <div class="footer-contact">
+                <p><i class="fa-solid fa-location-dot"></i>Jalgaon, Maharashtra, India</p>
+                <p> <i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+                <p><i class="fa-regular fa-envelope"></i> support@travelease.com</p>
+         </div>
+        </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+        <p>  © 2026 TravelEase. All Rights Reserved.</p>
+        <div>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+    </div>
+</footer>
+    {%endblock%}
+</body>
+</html>

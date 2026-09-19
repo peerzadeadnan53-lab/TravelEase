@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="destination-details-section">
+
+    <div class="details-header">
+        <span>EXPLORE DESTINATION</span>
+        <h2>{{ destination.name }}</h2>
+        <p>{{ destination.description }}</p>
+    </div>
+
+    <div class="details-main-container">
+
+        <div class="details-main-image">
+            <img src="{{ url_for('static', filename='images/' + destination.image) }}"
+                 alt="{{ destination.name }}">
+        </div>
+
+        <div class="details-main-content">
+
+            <div class="details-location">
+                <i class="fa-solid fa-location-dot"></i>
+                {{ destination.location }}
+            </div>
+
+            <h2>{{ destination.name }}</h2>
+
+            <div class="details-rating">
+                <i class="fa-solid fa-star"></i>
+                {{ destination.rating }}
+            </div>
+
+            <p>
+                {{ destination.description }}
+            </p>
+
+           <button class="details-book-btn"
+        onclick="window.location.href='/booking?package={{ destination.package_name }}&price={{ destination.package_price }}&days={{ destination.package_days }}&detail={{ destination.description }}&location={{ destination.location }}&image={{ destination.image }}'">
+                Book This Trip
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+        </div>
+
+    </div>
+    <div class="details-info-section">
+
+    <div class="info-section-title">
+        <i class="fa-solid fa-hotel"></i>
+
+        <div>
+            <span>STAY</span>
+            <h3>Recommended Hotel</h3>
+        </div>
+    </div>
+
+    <div class="hotel-container">
+
+        <div class="hotel-image">
+            <img src="{{ url_for('static', filename='images/' + destination.hotel_image) }}"
+                 alt="{{ destination.hotel_name }}">
+        </div>
+
+        <div class="hotel-content">
+
+            <h3>{{ destination.hotel_name }}</h3>
+
+            <div class="hotel-rating">
+                <i class="fa-solid fa-star"></i>
+                {{ destination.hotel_rating }}
+            </div>
+
+            <p>
+                {{ destination.hotel_description }}
+            </p>
+
+            <div class="hotel-features">
+
+                {% for feature in destination.hotel_features %}
+                    <span>
+                        <i class="fa-solid fa-check"></i>
+                        {{ feature }}
+                    </span>
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="details-info-section">
+
+    <div class="info-section-title">
+        <i class="fa-solid fa-location-dot"></i>
+
+        <div>
+            <span>HIGHLIGHTS</span>
+            <h3>Places Covered</h3>
+        </div>
+    </div>
+
+    <div class="places-grid">
+
+        {% for place in destination.places %}
+
+            <div class="place-item">
+                <i class="fa-solid fa-location-dot"></i>
+                {{ place }}
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+<div class="details-info-section">
+
+    <div class="info-section-title">
+        <i class="fa-solid fa-utensils"></i>
+
+        <div>
+            <span>LOCAL EXPERIENCE</span>
+            <h3>Food & Dining</h3>
+        </div>
+    </div>
+
+    <div class="food-content">
+        <p>
+            {{ destination.food }}
+        </p>
+    </div>
+
+</div>
+<div class="details-info-section">
+
+    <div class="info-section-title">
+        <i class="fa-solid fa-calendar-days"></i>
+
+        <div>
+            <span>TRIP PLAN</span>
+            <h3>Day-wise Itinerary</h3>
+        </div>
+    </div>
+
+    <div class="itinerary-container">
+
+        {% for item in destination.itinerary %}
+
+            <div class="itinerary-item">
+
+                <div class="itinerary-day">
+                    {{ item.day }}
+                </div>
+
+                <p>
+                    {{ item.plan }}
+                </p>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+<div class="details-includes">
+
+    <div class="include-box">
+
+        <div class="info-section-title">
+            <i class="fa-solid fa-circle-check"></i>
+
+            <div>
+                <span>PACKAGE BENEFITS</span>
+                <h3>What's Included</h3>
+            </div>
+        </div>
+
+        <ul>
+
+            {% for item in destination.included %}
+
+                <li>
+                    <i class="fa-solid fa-check"></i>
+                    {{ item }}
+                </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+
+    <div class="include-box">
+
+        <div class="info-section-title">
+            <i class="fa-solid fa-circle-xmark"></i>
+
+            <div>
+                <span>PLEASE NOTE</span>
+                <h3>Not Included</h3>
+            </div>
+        </div>
+
+        <ul>
+
+            {% for item in destination.not_included %}
+
+                <li>
+                    <i class="fa-solid fa-xmark"></i>
+                    {{ item }}
+                </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+</div>
+<div class="details-final-booking">
+
+    <h3>Ready to Explore {{ destination.name }}?</h3>
+
+    <p>
+        Make your journey memorable with TravelEase.
+    </p>
+
+    <button class="details-book-btn"
+            onclick="window.location.href='/booking?package={{ destination.package_name }}&price={{ destination.package_price }}&days={{ destination.package_days }}&detail={{ destination.description }}&location={{ destination.location }}&image={{ destination.image }}'">
+
+        Book This Trip
+        <i class="fa-solid fa-arrow-right"></i>
+
+    </button>
+
+</div>
+
+</section>
+
+{% endblock %}

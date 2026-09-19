@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Manager Dashboard - TravelEase</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="manager-dashboard">
+
+        <div class="manager-header">
+            <div class="manager-sidebar">
+
+    <h2>TravelEase</h2>
+
+    <p class="sidebar-title">MANAGER PANEL</p>
+
+    <a href="/manager-dashboard">
+        <i class="fa-solid fa-house"></i>
+        Dashboard
+    </a>
+
+    <a href="/manager-users">
+        <i class="fa-solid fa-users"></i>
+        Users
+    </a>
+
+    <a href="/manager-bookings">
+        <i class="fa-solid fa-calendar-check"></i>
+        Bookings
+    </a>
+
+    <a href="/manager-messages">
+        <i class="fa-solid fa-envelope"></i>
+        Messages
+    </a>
+
+   <a href="/manager-subscribers">
+    <i class="fa-solid fa-paper-plane"></i>
+    Subscribers
+     </a>
+  <a href="/manager-wishlist">
+    <i class="fa-solid fa-heart"></i>
+    Wishlist
+</a>
+    <a href="/manager-logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+    </a>
+
+</div>
+<div class="manager-main-content">
+    <div class="manager-header">
+            <div>
+                <h1>TravelEase Manager Panel</h1>
+                <p>Welcome, {{ session.get("manager_name") }}</p>
+            </div>
+
+            <button onclick="window.location.href='/manager-logout'">
+                Logout
+            </button>
+
+        </div>
+
+
+        <div class="dashboard-cards">
+
+           <div class="dashboard-card"
+          onclick="window.location.href='/manager-users'">
+
+    <h3>Total Users</h3>
+    <strong>{{ total_users }}</strong>
+
+       </div>
+<div class="dashboard-card"
+     onclick="window.location.href='/manager-bookings'">
+
+    <h3>Total Bookings</h3>
+    <strong>{{ total_bookings }}</strong>
+
+</div>
+
+            <div class="dashboard-card">
+                <h3>Confirmed</h3>
+                <strong>{{ confirmed_bookings }}</strong>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Cancelled</h3>
+                <strong>{{ cancelled_bookings }}</strong>
+            </div>
+
+<div class="dashboard-card"
+     onclick="window.location.href='/manager-messages'">
+    <h3>Messages</h3>
+    <strong>{{ total_messages }}</strong>
+</div>
+
+<div class="dashboard-card"
+     onclick="window.location.href='/manager-subscribers'">
+    <h3>Subscribers</h3>
+    <strong>{{ total_subscribers }}</strong>
+</div>
+
+ <div class="dashboard-card"
+     onclick="window.location.href='/manager-wishlist'">
+    <h3>Wishlist Items</h3>
+    <strong>{{ total_wishlist }}</strong>
+</div>
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>

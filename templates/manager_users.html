@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>All Users - TravelEase</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<!-- <div class="manager-dashboard">
+
+    <div class="manager-header">
+
+        <div>
+            <h1>All Users</h1>
+            <p>Registered TravelEase users</p>
+        </div>
+
+        <div>
+            <button onclick="window.location.href='/manager-dashboard'">
+                Dashboard
+            </button>
+
+            <button onclick="window.location.href='/manager-logout'">
+                Logout
+            </button>
+        </div>
+
+    </div>
+
+
+    <div class="booking-table-container">
+
+        <table class="manager-table">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for user in users %}
+
+                <tr>
+                    <td>{{ user[0] }}</td>
+                    <td>{{ user[1] }}</td>
+                    <td>{{ user[2] }}</td>
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="3">
+                        No users found.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div> -->
+    <div class="manager-dashboard">
+
+    <!-- Sidebar -->
+    <div class="manager-sidebar">
+
+        <h2>TravelEase</h2>
+
+        <p class="sidebar-title">MANAGER PANEL</p>
+
+        <a href="/manager-dashboard">
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+        </a>
+
+        <a href="/manager-users">
+            <i class="fa-solid fa-users"></i>
+            Users
+        </a>
+
+        <a href="/manager-bookings">
+            <i class="fa-solid fa-calendar-check"></i>
+            Bookings
+        </a>
+
+        <a href="/manager-messages">
+            <i class="fa-solid fa-envelope"></i>
+            Messages
+        </a>
+
+        <a href="/manager-subscribers">
+            <i class="fa-solid fa-paper-plane"></i>
+            Subscribers
+        </a>
+
+        <a href="/manager-wishlist">
+            <i class="fa-solid fa-heart"></i>
+            Wishlist
+        </a>
+
+        <a href="/manager-logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="manager-main-content">
+
+        <!-- Page Header -->
+        <div class="manager-header">
+
+            <div>
+                <h1>All Users</h1>
+                <p>Registered TravelEase users</p>
+            </div>
+
+            <div>
+                <button onclick="window.location.href='/manager-dashboard'">
+                    Dashboard
+                </button>
+
+                <button onclick="window.location.href='/manager-logout'">
+                    Logout
+                </button>
+            </div>
+
+        </div>
+
+
+        <!-- Users Details -->
+        <div class="booking-table-container">
+
+            <table class="manager-table">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for user in users %}
+
+                    <tr>
+                        <td>{{ user[0] }}</td>
+                        <td>{{ user[1] }}</td>
+                        <td>{{ user[2] }}</td>
+                        <td>
+    <form method="POST"
+          action="/manager-delete-user/{{ user[0] }}"
+          onsubmit="return confirm('Are you sure you want to delete this user?');">
+
+        <button type="submit" class="manager-delete-btn">
+            <i class="fa-solid fa-trash"></i>
+            Delete
+        </button>
+
+    </form>
+</td>
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="3">
+                            No users found.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</body>
+</html>

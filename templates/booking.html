@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Trip TravelEase</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <section class="booking-page">
+        <div class="booking-wrapper">
+            <!-- LEFT SIDE -->
+ <div class="booking-preview">
+     <div class="booking-preview-image">
+      <img id="packageImage" src="{{ url_for('static', filename='images/package-kashmir.jpg') }}" alt="Travel Destination">
+     </div>
+     <div class="booking-preview-content" >
+        <span class="booking-label">
+            <i class="fa-solid fa-location-dot"></i>
+            <span id="packageLocation">Kashmir, India</span>
+        </span>
+             <h1 id="packageName">Magical Kashmir</h1>
+        <p id="packageDetail"> Explore beautiful valleys, peaceful lakes and breathtaking mountain views.</p>
+ <div class="booking-preview-details">
+            <i class="fa-regular fa-clock"></i>
+             <span id="packageDays">5 Days</span>   
+          <span>
+            <i class="fa-solid fa-user-group"></i>
+                2 Persons
+            </span>
+          </div>
+          
+     <div class="booking-preview-price">
+         <small>Starting from</small>
+        <strong>₹<span id="packagePrice">24,999</span></strong>
+     </div>
+     
+      </div>
+     </div>
+
+   <!-- RIGHT SIDE -->
+            <div class="booking-form-box">
+          <div class="booking-heading">
+               <span>TRAVEL WITH TRAVELEASE</span>
+              <h2>Book Your Trip</h2>
+            <p>  Fill in your details and get ready for an unforgettable journey.</p>
+        </div>
+         <form class="booking-form" id="bookingForm" method="POST" action="/booking">
+            <input type="hidden" id="selectedPackage" name="packageName"required>
+         <div class="booking-input-row">
+           <div class="booking-input">
+             <label>Full Name</label>
+           <div class="input-box">
+             <i class="fa-regular fa-user"></i>
+              <input type="text"id="fullName"name="fullName" placeholder="Enter your name" required>
+         </div>
+        </div>
+         <div class="booking-input">
+            <label>Email Address</label>
+         <div class="input-box">
+             <i class="fa-regular fa-envelope"></i>
+              <input type="email" id="email"name="email"placeholder="Enter your email" required>
+            </div>
+        </div>
+     </div>
+             <div class="booking-input-row">
+        <div class="booking-input">
+     <label>Phone Number</label>
+         <div class="input-box">
+             <i class="fa-solid fa-phone"></i>
+             <input type="tel" id="phone"name="phone"placeholder="Enter phone number"  pattern="[0-9]{10}"
+       maxlength="10"
+       minlength="10"
+       title="Please enter exactly 10 digits" required>
+         </div>
+        </div>
+            <div class="booking-input">
+                    <label>Destination</label>
+                <div class="input-box">
+                    <i class="fa-solid fa-location-dot"></i>
+                <select id="destinationSelect" name="destination">
+                <option value="">Choose Destination</option>
+                <option>Kashmir</option>
+                <option>Dubai</option>
+                <option>Bali</option>
+                 </select>
+                 </div>
+             </div>
+            </div>
+            <div class="booking-input-row">
+                <div class="booking-input">
+             <label>Travel Date</label>
+            <div class="input-box">
+             <i class="fa-regular fa-calendar"></i>
+         <input type="date"id="travelDate"name="travelDate"recequired>
+     </div>
+    </div>
+                 <div class="booking-input">
+              <label>Number of Persons</label>
+                <div class="input-box">
+            <i class="fa-solid fa-users"></i>
+                <input type="number"id="persons"name="persons" min="1" placeholder="2"required>
+                </div>
+            </div>
+            </div>
+         <div class="booking-input">
+            <label>Special Request</label>
+             <div class="input-box textarea-box">
+                 <i class="fa-regular fa-message"></i>
+                <textarea id="specialRequest" name="specialRequest" placeholder="Any special requirements?"></textarea>
+                </div>
+                    </div>
+                    <button type="submit" class="booking-submit">Confirm Booking
+                        <i class="fa-solid fa-arrow-right"></i></button>
+                        <p id="bookingMessage"></p>
+            </form>
+            </div>
+     </div>
+    </section>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+    const params = new URLSearchParams(window.location.search);
+
+    const packageName = params.get("package");
+    const packagePrice = params.get("price");
+    const packageDays = params.get("days");
+    const packageDetail = params.get("detail");
+    const packageLocation = params.get("location");
+    const packageImage = params.get("image");
+   
+
+    document.getElementById("packageName").textContent =
+     packageName || "Magical Kashmir";
+
+    document.getElementById("packagePrice").textContent =
+    packagePrice || "24,999";
+
+    document.getElementById("packageDays").textContent =
+    packageDays ? packageDays + " Days" : "5 Days";
+
+     document.getElementById("packageDetail").textContent =
+    packageDetail || "Explore beautiful valleys, peaceful lakes and breathtaking mountain views.";
+
+    document.getElementById("packageLocation").textContent =
+    packageLocation || "Kashmir, India";
+
+    document.getElementById("packageImage").src =
+    packageImage ? "/static/images/" + packageImage : "/static/images/package-kashmir.jpg";
+    // document.getElementById("packageImage").src =
+    // packageImage || "/static/images/package-kashmir.jpg";
+    document.getElementById("selectedPackage").value =
+    packageName || "Magical Kashmir";
+
+
+
+    const destinationSelect = document.getElementById("destinationSelect");
+if (packageName && destinationSelect) {
+    if (packageName.includes("Kashmir")) {
+        destinationSelect.value = "Kashmir";
+    } else if (packageName.includes("Dubai")) {
+        destinationSelect.value = "Dubai";
+    } else if (packageName.includes("Bali")) {
+        destinationSelect.value = "Bali";
+    }
+}
+
+
+//   load
+// bookingForm.addEventListener("submit", function(event) {
+//     event.preventDefault();
+
+//     const fullName = document.getElementById("fullName").value.trim();
+//     const email = document.getElementById("email").value.trim();
+//     const phone = document.getElementById("phone").value.trim();
+//     const destination = document.getElementById("destinationSelect").value;
+//     const travelDate = document.getElementById("travelDate").value;
+//     const persons = document.getElementById("persons").value;
+
+//     // Check empty fields
+//     if (
+//         fullName === "" || email === "" || phone === "" || destination === "" || travelDate === "" || persons === ""){
+//         bookingMessage.textContent = "Please fill in all required fields!";
+//         return;
+//     }
+
+//     // Check number of persons
+//     if (Number(persons) < 1) {
+//         bookingMessage.textContent = "Number of persons must be at least 1!";
+//         return;
+//     }
+
+//     // Success message
+//     bookingMessage.textContent =
+//         "Thank you, "+fullName+"  your booking for  "+packageName+"  to "+destination+" has been submitted successfully";
+// });
+</script>
+</body>
+</body>
+</html>

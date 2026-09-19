@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}
+Booking Successful
+{% endblock %}
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box booking-success-box">
+        <div class="success-icon">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h2>Booking Successful!</h2>
+        <p> Thank you, <strong>{{ name }}</strong>! Your booking has been submitted successfully.</p>
+
+        <div class="booking-success-details">
+            <div>
+                <span>Package</span>
+                <strong>{{ package }}</strong>
+            </div>
+
+            <div>
+                <span>Destination</span>
+                <strong>{{ destination }}</strong>
+            </div>
+            
+            <div>
+                <span>Travel Date</span>
+                <strong>{{ travel_date }}</strong>
+            </div>
+
+            <div>
+                <span>Travelers</span>
+                <strong>{{ travelers }}</strong>
+            </div>
+            
+            <div class="booking-reference">
+            <strong>Booking Reference:</strong>
+            <span>{{ booking_reference }}</span>
+         </div>
+
+        </div>
+
+        <button class="auth-btn"
+                onclick="window.location.href='/'">
+            Back to Home
+        </button>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wishlist - TravelEase</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="manager-dashboard">
+
+    <!-- Sidebar -->
+    <div class="manager-sidebar">
+
+        <h2>TravelEase</h2>
+
+        <p class="sidebar-title">MANAGER PANEL</p>
+
+        <a href="/manager-dashboard">
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+        </a>
+
+        <a href="/manager-users">
+            <i class="fa-solid fa-users"></i>
+            Users
+        </a>
+
+        <a href="/manager-bookings">
+            <i class="fa-solid fa-calendar-check"></i>
+            Bookings
+        </a>
+
+        <a href="/manager-messages">
+            <i class="fa-solid fa-envelope"></i>
+            Messages
+        </a>
+
+        <a href="/manager-subscribers">
+            <i class="fa-solid fa-paper-plane"></i>
+            Subscribers
+        </a>
+
+        <a href="/manager-wishlist">
+            <i class="fa-solid fa-heart"></i>
+            Wishlist
+        </a>
+
+        <a href="/manager-logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="manager-main-content">
+
+        <div class="manager-header">
+
+            <div>
+                <h1>Wishlist</h1>
+                <p>Destinations saved by TravelEase users</p>
+            </div>
+            
+        <div>
+            <button onclick="window.location.href='/manager-dashboard'">
+                Dashboard
+            </button>
+
+            <button onclick="window.location.href='/manager-logout'">
+                Logout
+            </button>
+        </div>
+
+
+        </div>
+
+
+        <div class="booking-table-container">
+
+            <table class="manager-table">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Destination</th>
+                        <th>Added Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for item in wishlist_items %}
+
+                    <tr>
+                        <td>{{ item[0] }}</td>
+                        <td>{{ item[1] }}</td>
+                        <td>{{ item[2] }}</td>
+                        <td>
+                            <i class="fa-solid fa-heart"></i>
+                            {{ item[3] }}
+                        </td>
+                        <td>{{ item[4] }}</td>
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="5">
+                            No wishlist items found.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

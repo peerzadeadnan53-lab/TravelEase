@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>travels</title>
+    <!-- google font -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+        <!-- font Awesome -->
+            <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+       <!-- CSS -->
+     
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+     <linlk href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+    rel="stylesheet">
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+    
+   
+    <!-- aos js -->
+   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+   <!--aos initi--  -->
+   <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+    <!-- Your JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

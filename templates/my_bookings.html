@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Bookings | TravelEase
+{% endblock %}
+
+{% block content %}
+
+<section class="my-bookings-section">
+
+    <div class="section-heading">
+        <span>YOUR JOURNEYS</span>
+        <h2>My Bookings</h2>
+        <p>View all your travel bookings in one place.</p>
+    </div>
+
+    {% if bookings %}
+        <div class="bookings-container">
+            {% for booking in bookings %}
+            <div class="my-booking-card">
+         <div class="booking-card-header">
+            <h3>{{ booking[3] }}</h3>
+        <span class="booking-id">Booking #{{ booking[0] }} </span>
+     </div>
+
+         <div class="booking-card-details">
+
+     <div>
+        <span>Destination</span>
+        <strong>{{ booking[2] }}</strong>
+     </div>
+
+    <div>
+        <span>Travel Date</span>
+        <strong>{{ booking[4] }}</strong>
+     </div>
+
+    <div>
+     <span>Travelers</span>
+     <strong>{{ booking[5] }}</strong>
+         </div>
+        </div>
+        <div>
+    <span>Status</span>
+    <strong class="booking-status {{ booking[7]|lower }}">
+        {{ booking[7] }}
+    </strong>
+    <div class="booking-reference">
+    <strong>Reference:</strong>
+    <span>{{ booking[8] }}</span>
+</div>
+</div>
+{% if booking[7] == "Pending" %}
+
+<div class="booking-actions">
+    <form action="/cancel-booking/{{ booking[0] }}" method="POST">
+        <button type="submit" class="cancel-booking-btn">
+            Cancel Booking
+        </button>
+    </form>
+</div>
+
+{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        
+    {% else %}
+        <div class="no-bookings">
+            <i class="fa-solid fa-calendar-xmark"></i>
+            <h3>No Bookings Yet</h3>
+            <p> You haven't made any travel bookings yet.</p>
+            <button class="auth-btn"onclick="window.location.href='/'"> Explore Destinations</button>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
