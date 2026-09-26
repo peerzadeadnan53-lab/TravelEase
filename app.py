@@ -1,18 +1,22 @@
 import uuid
+import os
 from flask import Flask, render_template,request,redirect,session,flash
 from werkzeug.security import generate_password_hash, check_password_hash
 import psycopg
+from dotenv import load_dotenv
+
+load_dotenv()
 #Flask appliction create
 app = Flask(__name__)
-app.secret_key = "travelease_secret_key_2026"
+app.secret_key = os.getenv("SECRET_KEY")
 
 def get_db_connection():
-    conn=psycopg.connect(
-        host="localhost",
-        dbname="travelease_db",
-        user="postgres",
-        password="0313",
-        port="5432"
+    conn = psycopg.connect(
+        host=os.getenv("DB_HOST"),
+        dbname=os.getenv("DB_NAME"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        port=os.getenv("DB_PORT", "5432")
     )
     return conn
 
